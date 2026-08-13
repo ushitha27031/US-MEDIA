@@ -486,7 +486,8 @@ section{padding:120px 0;position:relative;}
 .review-card{
   flex:none;width:340px;background:var(--ink);border:1px solid var(--line);border-radius:16px;padding:26px;
 }
-.stars{display:flex;gap:3px;margin-bottom:14px;}
+.stars{display:flex;align-items:center;gap:3px;margin-bottom:14px;}
+.stars .rating-num{margin-left:6px;font-family:var(--font-mono);font-size:12px;color:var(--muted);}
 .stars svg{width:15px;height:15px;color:var(--yellow);fill:var(--yellow);}
 .review-card p.quote{font-size:14px;color:var(--paper);margin-bottom:20px;min-height:88px;}
 .review-who{display:flex;align-items:center;gap:12px;}
@@ -1085,7 +1086,7 @@ footer{border-top:1px solid var(--line);padding:60px 0 30px;}
     <div class="section-head center reveal">
       <span class="eyebrow-sm">CLIENT LOVE</span>
       <h2>4.9★ from 49 reviews on Upwork.</h2>
-      <p>Placeholder cards below — replace with screenshots or text pulled from your real Upwork feedback before publishing. <a href="https://www.upwork.com/freelancers/~012d7e6d0aee456a5b" target="_blank" rel="noopener" style="color:var(--cyan);font-weight:600;">See all 49 reviews on Upwork ↗</a></p>
+      <p>Real client feedback pulled from Upwork — names are display names only, since Upwork keeps client identities private. <a href="https://www.upwork.com/freelancers/~012d7e6d0aee456a5b" target="_blank" rel="noopener" style="color:var(--cyan);font-weight:600;">See all 49 reviews on Upwork ↗</a></p>
     </div>
   </div>
   <div class="review-track"><div class="review-row left" id="reviewRow1"></div></div>
@@ -1259,12 +1260,22 @@ const postData = [
   {type:'STORY COVER', title:'Behind The Scenes', tone:'f'},
 ];
 const reviewData = [
-  {name:'Marcus R.', role:'YouTube Creator', loc:'USA', rating:5, tone:'a', text:'Turnaround was fast and retention on my last few videos jumped noticeably. This is my go-to editor for every upload now.'},
-  {name:'Priya K.', role:'Real Estate Broker', loc:'Canada', rating:5, tone:'b', text:'The listing videos looked like something out of a real estate magazine. Walkthroughs book faster since we started using these.'},
-  {name:'Daniel W.', role:'E-commerce Brand Owner', loc:'UK', rating:5, tone:'c', text:'We needed the same ad cut four different ways for four platforms. Delivered clean, on-brand, and on time.'},
-  {name:'Aisha B.', role:'Podcast Host', loc:'Australia', rating:4.5, tone:'d', text:'Shorts from our episodes consistently outperform what we used to post ourselves. Revisions are small and fast.'},
-  {name:'Jordan T.', role:'Documentary Filmmaker', loc:'USA', rating:5, tone:'e', text:'Patient with a complex interview-heavy cut and really understood pacing. Exactly the collaborator this project needed.'},
-  {name:'Lena F.', role:'Gaming Channel', loc:'Germany', rating:5, tone:'f', text:'Montages hit different now. Sound design and pacing took our channel to a different level.'},
+  {name:'Rachel M.', role:'Food History YouTube Channel', rating:5.0, tone:'a', text:'Dependable. Always on time.'},
+  {name:'Tom B.', role:'Near-Death Experience Channel', rating:5.0, tone:'b', text:"The gentleman does fantastic work! Do yourself a favor and hire him!"},
+  {name:'Daniel K.', role:'Formula 1 YouTube Channel', rating:4.5, tone:'c', text:'I think Ushitha is great with his work! But we need a different style that suits our project.'},
+  {name:'Sarah J.', role:'YouTube Shorts Repurposing', rating:5.0, tone:'d', text:'Ushitha did a great job and had it completed in a day. Exceptional work, thanks.'},
+  {name:'Michael D.', role:'YouTube Channel Editor', rating:4.6, tone:'e', text:'Videos made were great and they always worked hard to produce the videos I needed. Owned up to any mistakes and made changes based on my requirements until I was happy. Very hard worker, very easy to work with, and communication was always there. Definitely recommend.'},
+  {name:'James O.', role:'Aviation YouTube Channel', rating:5.0, tone:'f', text:'Ushitha went above and beyond for our channel and content. Everything we asked for he always delivered. Great guy and would highly recommend his work.'},
+  {name:'Priya N.', role:'YouTube Channel Editor', rating:5.0, tone:'a', text:'Incredible videos! Clearly an incredible video editor with quick delivery! Highly recommend :)'},
+  {name:'Antoine R.', role:'Luxury YouTube Channel', rating:5.0, tone:'b', text:'Very great to work with, a very good YouTube editor.'},
+  {name:'Kevin S.', role:'Finance / Economy Channel', rating:5.0, tone:'c', text:'Easy to work with and went above and beyond what was asked of him. It made me feel like he really took pride in his work.'},
+  {name:'Chris L.', role:'F1 Thumbnail &amp; Video Editing', rating:5.0, tone:'d', text:'He is good to work with.'},
+  {name:'Natalie F.', role:'Top 5 Countdown Channel', rating:5.0, tone:'e', text:'His communication was detailed and he always responded quickly. Any changes or updates requested were always corrected swiftly.'},
+  {name:'Alex P.', role:'Anime Recap Channel', rating:5.0, tone:'f', text:'Very good editor, highly recommend as he does a good job and gets videos done on time.'},
+  {name:'Laura W.', role:'YouTube Channel Editor', rating:5.0, tone:'a', text:"Did good work and was quick to make corrections and let you know if something couldn't be done. I would have no problem recommending to someone."},
+  {name:'Ben H.', role:'YouTube Channel Editor', rating:5.0, tone:'b', text:'Great work on what I gave to edit and satisfied.'},
+  {name:'Morgan T.', role:'Horror / Documentary Channel', rating:5.0, tone:'c', text:"This edit is absolutely stellar. You took a script that wasn't working and turned it into something truly compelling. Amazing job."},
+  {name:'David C.', role:'Cricket Sports Channel', rating:5.0, tone:'d', text:'Working with Ushitha was a good experience. He definitely has his skills as a video editor, and he is great at following specific instructions given for the video. Highly recommended!'},
 ];
 
 /* ================= RENDER HELPERS ================= */
@@ -1299,11 +1310,11 @@ function postHTML(item, i){
 function reviewHTML(item){
   const toneVar = {a:'var(--violet),var(--magenta)',b:'var(--cyan),var(--violet)',c:'var(--magenta),var(--yellow)',d:'var(--cyan),var(--magenta)',e:'var(--yellow),var(--magenta)',f:'#2b1b4a,var(--void)'}[item.tone];
   return `<div class="review-card">
-    <div class="stars">${starIcons(item.rating)}</div>
+    <div class="stars">${starIcons(item.rating)}<span class="rating-num">${item.rating.toFixed(1)}</span></div>
     <p class="quote">&ldquo;${item.text}&rdquo;</p>
     <div class="review-who">
       <div class="av" style="background:linear-gradient(135deg,${toneVar})">${initials(item.name)}</div>
-      <div><b>${item.name}</b><span><svg><use href="#i-pin"/></svg>${item.role} · ${item.loc}</span></div>
+      <div><b>${item.name}</b><span>${item.role}</span></div>
     </div>
     <div class="upwork-badge"><svg><use href="#i-upwork"/></svg>UPWORK VERIFIED</div>
   </div>`;
