@@ -193,11 +193,28 @@ header.scrolled{
 }
 .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;}
 
+.upwork-live{
+  display:inline-flex;align-items:center;gap:9px;flex-wrap:wrap;
+  margin-top:28px;padding:10px 18px;border-radius:100px;
+  background:rgba(111,218,68,0.08);border:1px solid rgba(111,218,68,0.35);
+  font-size:12.5px;font-weight:600;color:var(--paper);
+  transition:transform .25s, border-color .25s, background .25s;
+}
+.upwork-live:hover{transform:translateY(-2px);border-color:#6FDA44;background:rgba(111,218,68,0.14);}
+.upwork-live svg{width:16px;height:16px;color:#6FDA44;flex:none;}
+.upwork-live svg.ext{width:11px;height:11px;color:var(--muted);}
+.upwork-live b{color:#6FDA44;font-family:var(--font-mono);font-size:13.5px;}
+.upwork-live i{opacity:.35;font-style:normal;}
+@media (max-width:640px){.upwork-live{font-size:11.5px;padding:9px 14px;}}
+
 .stat-row{
   display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
   margin-top:78px;position:relative;z-index:2;
 }
 .stat{border-left:1px solid var(--line);padding-left:16px;}
+.stat.stat-link{display:block;text-decoration:none;color:inherit;transition:transform .25s, opacity .25s;}
+.stat.stat-link:hover{transform:translateY(-3px);opacity:.85;}
+.stat.stat-link span{color:var(--cyan);}
 .stat b{
   display:block;font-family:var(--font-mono);font-size:clamp(24px,3.2vw,34px);font-weight:600;
   background:linear-gradient(90deg,var(--paper),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent;
@@ -355,26 +372,46 @@ section{padding:120px 0;position:relative;}
 .grid-thumb{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
 @media (max-width:980px){.grid-thumb{grid-template-columns:repeat(2,1fr);}}
 @media (max-width:520px){.grid-thumb{grid-template-columns:1fr;}}
-.thumb-card{border-radius:14px;overflow:hidden;border:1px solid var(--line);transition:transform .3s;}
-.thumb-card:hover{transform:translateY(-6px) rotate(-.5deg);}
-.thumb-mock{
-  aspect-ratio:16/9;position:relative;display:flex;flex-direction:column;justify-content:flex-end;
-  padding:16px;overflow:hidden;
+.thumb-card{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--ink);transition:transform .3s, box-shadow .3s;cursor:pointer;}
+.thumb-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.4);}
+.thumb-imgwrap{aspect-ratio:16/9;position:relative;overflow:hidden;}
+.thumb-imgwrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s cubic-bezier(.2,.8,.2,1);}
+.thumb-card:hover .thumb-imgwrap img{transform:scale(1.08);}
+.thumb-imgwrap .tag{
+  position:absolute;top:10px;left:10px;z-index:2;font-size:10px;font-weight:800;letter-spacing:.04em;
+  color:var(--void);background:var(--yellow);padding:4px 9px;border-radius:5px;
 }
-.thumb-mock::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 75% 20%, rgba(255,255,255,.18), transparent 55%);}
-.thumb-mock .arrow{
-  position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;
-  background:var(--yellow);display:flex;align-items:center;justify-content:center;
+.thumb-imgwrap .zoom{
+  position:absolute;bottom:10px;right:10px;z-index:2;width:30px;height:30px;border-radius:50%;
+  background:rgba(0,0,0,0.45);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:scale(.8);transition:opacity .25s, transform .25s;
 }
-.thumb-mock .arrow svg{width:15px;height:15px;color:var(--void);transform:rotate(-45deg);}
-.thumb-mock .badge{
-  align-self:flex-start;background:var(--void);color:var(--yellow);font-size:10px;font-weight:800;
-  padding:4px 9px;border-radius:5px;margin-bottom:10px;letter-spacing:.04em;
+.thumb-card:hover .zoom{opacity:1;transform:scale(1);}
+.thumb-imgwrap .zoom svg{width:14px;height:14px;color:#fff;}
+.thumb-cap{padding:12px 14px 14px;}
+.thumb-cap h5{font-family:var(--font-display);font-size:13.5px;font-weight:700;margin-bottom:4px;color:var(--paper);}
+.thumb-cap span{font-size:11.5px;color:var(--muted);}
+
+/* ---------- Image lightbox (thumbnail gallery) ---------- */
+.img-modal-overlay{
+  position:fixed;inset:0;z-index:3000;background:rgba(6,6,12,0.92);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;padding:24px;
+  opacity:0;pointer-events:none;transition:opacity .3s ease;
 }
-.thumb-mock h5{
-  font-family:var(--font-display);font-size:18px;font-weight:800;color:#fff;
-  text-shadow:0 2px 10px rgba(0,0,0,.5);line-height:1.1;
+.img-modal-overlay.open{opacity:1;pointer-events:auto;}
+.img-modal-box{
+  max-width:920px;width:100%;transform:scale(.94);transition:transform .3s cubic-bezier(.2,.8,.2,1);
 }
+.img-modal-overlay.open .img-modal-box{transform:scale(1);}
+.img-modal-box img{width:100%;border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.6);display:block;}
+.img-modal-topbar{display:flex;justify-content:space-between;align-items:center;padding:0 2px 12px;}
+.img-modal-topbar span{font-size:13.5px;font-weight:600;color:var(--paper);}
+.img-modal-close{
+  width:34px;height:34px;border-radius:50%;background:var(--ink-2);border:1px solid var(--line);
+  color:var(--paper);display:flex;align-items:center;justify-content:center;transition:all .2s;flex:none;
+}
+.img-modal-close:hover{background:var(--magenta);border-color:var(--magenta);}
+.img-modal-close svg{width:16px;height:16px;}
 
 /* ---------- Post design mockups ---------- */
 .grid-post{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
@@ -534,6 +571,12 @@ footer{border-top:1px solid var(--line);padding:60px 0 30px;}
 .hub-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
 @media (max-width:980px){.hub-grid{grid-template-columns:repeat(2,1fr);}}
 @media (max-width:560px){.hub-grid{grid-template-columns:1fr;}}
+.hub-group-title{
+  font-family:var(--font-display);font-size:14px;font-weight:700;letter-spacing:.03em;
+  color:var(--paper);margin:44px 0 18px;display:flex;align-items:center;gap:14px;
+}
+.hub-group-title:first-of-type{margin-top:0;}
+.hub-group-title::after{content:'';flex:1;height:1px;background:var(--line);}
 .hub-card{
   display:block;background:var(--ink);border:1px solid var(--line);border-radius:16px;overflow:hidden;
   transition:transform .3s cubic-bezier(.2,.8,.2,1), border-color .3s, box-shadow .3s;
@@ -686,18 +729,6 @@ footer{border-top:1px solid var(--line);padding:60px 0 30px;}
   </div>
   <div class="vcard dummy reveal" style="--d:140ms">
     <div class="vthumb tone-c"><svg style="width:26px;height:26px;color:rgba(255,255,255,.85)"><use href="#i-film"/></svg></div>
-    <div class="vbody"><h4>Coming Soon</h4><span>More samples added regularly</span></div>
-  </div>
-  <div class="vcard dummy reveal" style="--d:210ms">
-    <div class="vthumb tone-d"><svg style="width:26px;height:26px;color:rgba(255,255,255,.85)"><use href="#i-film"/></svg></div>
-    <div class="vbody"><h4>Coming Soon</h4><span>More samples added regularly</span></div>
-  </div>
-  <div class="vcard dummy reveal" style="--d:280ms">
-    <div class="vthumb tone-e"><svg style="width:26px;height:26px;color:rgba(255,255,255,.85)"><use href="#i-film"/></svg></div>
-    <div class="vbody"><h4>Coming Soon</h4><span>More samples added regularly</span></div>
-  </div>
-  <div class="vcard dummy reveal" style="--d:350ms">
-    <div class="vthumb tone-f"><svg style="width:26px;height:26px;color:rgba(255,255,255,.85)"><use href="#i-film"/></svg></div>
     <div class="vbody"><h4>Coming Soon</h4><span>More samples added regularly</span></div>
   </div>
     </div>
