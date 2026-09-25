@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>US Media — Video Editing, Thumbnails &amp; Post Design</title>
-<meta name="description" content="US Media edits YouTube videos, real estate tours, marketing ads and documentaries. Thumbnails, post design and videography — cut to convert.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%238B5CF6'/%3E%3Cpolygon points='38,28 74,50 38,72' fill='%23F5F3FF'/%3E%3C/svg%3E">
+<title>US Media — YouTube Editing, Thumbnails, Voice Over &amp; Scripts</title>
+<meta name="description" content="US Media: YouTube video editing from $20, thumbnails $5, human &amp; AI voice over, script writing, and channel management &amp; boosting.">
+<link rel="icon" type="image/png" href="images/logo-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&amp;family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
@@ -124,6 +124,8 @@ header.scrolled{
 .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;}
 .logo{display:flex;align-items:center;gap:9px;font-family:var(--font-display);font-weight:700;font-size:18px;letter-spacing:.02em;}
 .logo .rec{width:9px;height:9px;border-radius:50%;background:var(--magenta);animation:recBlink 1.4s infinite;box-shadow:0 0 10px var(--magenta);}
+.logo .logo-mark{height:32px;width:auto;flex:none;filter:drop-shadow(0 0 10px rgba(255,122,24,.35));}
+@media (max-width:480px){.logo{font-size:16px;gap:7px;}.logo .logo-mark{height:26px;}.nav-inner{gap:12px;}.nav-cta .btn-primary{padding:11px 16px;font-size:13px;}.nav-cta .btn-primary svg{display:none;}}
 .logo span.hl{background:linear-gradient(90deg,var(--violet),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent;}
 .nav-links{display:flex;align-items:center;gap:34px;}
 .nav-links a{font-size:14px;font-weight:600;color:var(--muted);position:relative;padding:4px 0;transition:color .2s;}
@@ -255,7 +257,8 @@ section{padding:120px 0;position:relative;}
 .reveal.in-view{opacity:1;transform:translateY(0);}
 
 /* ---------- Services ---------- */
-.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.service-card--wide{grid-column:span 2;}
 .service-card{
   background:var(--ink);border:1px solid var(--line);border-radius:var(--radius);
   padding:32px 26px;transition:transform .35s cubic-bezier(.2,.8,.2,1), border-color .35s, box-shadow .35s;
@@ -276,7 +279,7 @@ section{padding:120px 0;position:relative;}
 .service-card p{color:var(--muted);font-size:14.5px;margin-bottom:18px;}
 .service-from{font-family:var(--font-mono);font-size:12.5px;color:var(--cyan);display:flex;align-items:center;gap:6px;}
 @media (max-width:980px){.services-grid{grid-template-columns:repeat(2,1fr);}}
-@media (max-width:560px){.services-grid{grid-template-columns:1fr;}}
+@media (max-width:560px){.services-grid{grid-template-columns:1fr;}.service-card--wide{grid-column:auto;}}
 
 /* ---------- Tabs (shared: portfolio + pricing) ---------- */
 .tabbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px;}
@@ -462,6 +465,38 @@ section{padding:120px 0;position:relative;}
 .price-note svg{width:15px;height:15px;color:var(--cyan);flex:none;margin-top:1px;}
 .price-panel{display:none;background:var(--ink);border:1px solid var(--line);border-radius:18px;padding:10px 28px;}
 .price-panel.active{display:block;}
+
+/* ---------- Pricing cards ---------- */
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.price-card{background:var(--ink);border:1px solid var(--line);border-radius:20px;padding:28px 24px;position:relative;display:flex;flex-direction:column;gap:22px;}
+.price-card--wide{grid-column:1 / -1;}
+.pc-head{display:flex;gap:16px;align-items:flex-start;}
+.pc-head .service-icon{margin-bottom:0;flex:none;}
+.pc-head h3{font-size:19px;margin-bottom:6px;}
+.pc-head p{color:var(--muted);font-size:13.8px;}
+.opt-list{display:flex;flex-direction:column;gap:10px;margin-top:auto;}
+.opt-list--grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.opt{display:flex;align-items:center;gap:12px;padding:16px 16px;border:1px solid var(--line);border-radius:14px;background:var(--ink-2);transition:border-color .25s, transform .25s, background .25s;}
+.opt:hover{border-color:var(--magenta);transform:translateY(-3px);background:rgba(255,61,138,0.06);}
+.opt-label{flex:1;font-weight:700;font-size:14.5px;}
+.opt-label small{display:block;color:var(--muted);font-weight:400;font-size:12px;margin-top:3px;}
+.opt-price{font-family:var(--font-mono);color:var(--yellow);font-weight:600;font-size:20px;white-space:nowrap;}
+.opt-go{width:15px;height:15px;color:var(--muted);flex:none;transition:color .25s, transform .25s;}
+.opt:hover .opt-go{color:var(--magenta);transform:translateX(3px);}
+.opt-list--grid .opt{flex-direction:column;align-items:flex-start;gap:14px;padding:20px 18px;}
+.opt-list--grid .opt-price{font-size:30px;}
+.opt-list--grid .opt-go{position:absolute;opacity:0;}
+.opt-list--grid .opt{position:relative;}
+.price-card--partner{border-color:rgba(255,122,24,.55);background:linear-gradient(120deg, rgba(255,122,24,0.12), rgba(232,50,30,0.06) 45%, var(--ink) 80%);padding-top:34px;}
+.price-card--partner .pkg-ribbon{background:linear-gradient(90deg,#FFB020,#FF7A18,#E8321E);}
+.price-card--partner .service-icon{background:linear-gradient(135deg,#FFB020,#E8321E);}
+.partner-inner{display:flex;align-items:center;justify-content:space-between;gap:28px;}
+.partner-inner .pc-head{max-width:640px;}
+.partner-cta{display:flex;align-items:center;gap:22px;flex:none;}
+.partner-cta .pkg-price{margin:0;}
+@media (max-width:980px){.opt-list--grid{grid-template-columns:repeat(2,1fr);}.partner-inner{flex-direction:column;align-items:flex-start;}}
+@media (max-width:900px){.price-grid{grid-template-columns:1fr;}}
+@media (max-width:560px){.partner-cta{flex-direction:column;align-items:flex-start;width:100%;}.partner-cta .btn{white-space:normal;}}
 
 /* ---------- Process ---------- */
 .process-row{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;position:relative;}
@@ -666,6 +701,9 @@ footer{border-top:1px solid var(--line);padding:60px 0 30px;}
 <symbol id="i-youtube" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></symbol>
 <symbol id="i-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4V8h4v1.5A5.99 5.99 0 0 1 16 8z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></symbol>
 <symbol id="i-upwork" viewBox="0 0 24 24"><path d="M18.6 8.3c-2 0-3.5 1.3-4.1 3.3-.6-2-1.6-3.9-2.9-5.9h-2.6v6.1c0 1.4-.6 2.5-2 2.5s-2-1.1-2-2.5V5.7H2.4v6.1c0 3 1.9 5.1 4.6 5.1 1.8 0 3.1-.9 3.9-2.3l.4 1.9h2.4l-.9-4.2c.2-1.6 1.2-2.6 2.5-2.6 1.5 0 2.6 1.2 2.6 2.8s-1.1 2.8-2.6 2.8c-.5 0-.9-.1-1.3-.3l-.6 2.4c.6.2 1.3.4 2.1.4 3 0 5.2-2.3 5.2-5.3s-2.2-5.4-5.1-5.4z"/></symbol>
+<symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></symbol>
+<symbol id="i-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></symbol>
+<symbol id="i-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></symbol>
 </defs>
 </svg>
 
@@ -676,7 +714,7 @@ footer{border-top:1px solid var(--line);padding:60px 0 30px;}
 <!-- ================= NAV ================= -->
 <header id="site-header">
   <div class="container nav-inner">
-    <a href="index.html" class="logo"><span class="rec"></span>US <span class="hl">MEDIA</span></a>
+    <a href="index.html" class="logo"><img src="images/logo-mark.png" alt="US Media logo" class="logo-mark" width="38" height="32">US <span class="hl">MEDIA</span></a>
     <nav class="nav-links">
       <a href="#work">Work</a>
       <a href="#services">Services</a>
@@ -711,7 +749,7 @@ footer{border-top:1px solid var(--line);padding:60px 0 30px;}
   <div class="container hero-inner">
     <span class="eyebrow"><svg style="width:12px;height:12px"><use href="#i-film"/></svg> VIDEO EDITING AGENCY — EST. FRAME ONE</span>
     <h1>STOP THE SCROLL.<span class="line2">Frame by frame.</span></h1>
-    <p class="hero-sub">US Media edits YouTube videos, real estate tours, marketing ads and documentaries that hook viewers before the skip button finds them — plus the thumbnails, posts and footage to back it up. Every cut has a job.</p>
+    <p class="hero-sub">US Media edits YouTube videos that hook viewers before the skip button finds them — plus the thumbnails, voice overs, scripts and channel growth to back them up. Every cut has a job.</p>
     <div class="hero-ctas">
       <a href="#work" class="btn btn-primary"><svg><use href="#i-play"/></svg> See Our Work</a>
       <a href="#contact" class="btn btn-ghost">Get a Free Quote</a>
@@ -739,33 +777,39 @@ footer{border-top:1px solid var(--line);padding:60px 0 30px;}
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow-sm">WHAT WE DO</span>
-      <h2>Four crafts. One studio.</h2>
-      <p>You bring the raw footage or the idea — we bring the timeline, the color, the type, and the camera when you need it on location.</p>
+      <h2>Five services. One studio.</h2>
+      <p>You bring the idea or the raw footage — we bring the script, the voice, the edit, the thumbnail and the growth plan.</p>
     </div>
     <div class="services-grid">
       <div class="service-card reveal">
         <div class="service-icon"><svg><use href="#i-film"/></svg></div>
-        <h3>Video Editing</h3>
-        <p>Long-form, shorts, recaps and reels — cut for retention, paced for the platform, built to convert.</p>
-        <span class="service-from">FROM $18 <svg style="width:12px;height:12px"><use href="#i-arrow"/></svg></span>
+        <h3>YouTube Video Editing</h3>
+        <p>Long-form edits cut for retention and paced for the platform — from quick uploads to 20+ minute deep dives.</p>
+        <span class="service-from">FROM $20 <svg style="width:12px;height:12px"><use href="#i-arrow"/></svg></span>
       </div>
       <div class="service-card reveal">
         <div class="service-icon"><svg><use href="#i-image"/></svg></div>
         <h3>Thumbnail Design</h3>
         <p>The 3 seconds that decide the click. High-contrast, high-CTR thumbnails tested against your niche.</p>
-        <span class="service-from">FROM $12 <svg style="width:12px;height:12px"><use href="#i-arrow"/></svg></span>
+        <span class="service-from">$5 <svg style="width:12px;height:12px"><use href="#i-arrow"/></svg></span>
       </div>
       <div class="service-card reveal">
-        <div class="service-icon"><svg><use href="#i-grid"/></svg></div>
-        <h3>Post Design</h3>
-        <p>Feed posts, carousels and story covers that keep your grid on-brand and your audience scrolling slower.</p>
-        <span class="service-from">FROM $10 <svg style="width:12px;height:12px"><use href="#i-arrow"/></svg></span>
+        <div class="service-icon"><svg><use href="#i-mic"/></svg></div>
+        <h3>Voice Over</h3>
+        <p>Human narration with real personality, or fast AI voice for high-volume channels.</p>
+        <span class="service-from">FROM $5 <svg style="width:12px;height:12px"><use href="#i-arrow"/></svg></span>
       </div>
       <div class="service-card reveal">
-        <div class="service-icon"><svg><use href="#i-camera"/></svg></div>
-        <h3>Videography</h3>
-        <p>We bring the gear and the eye — shoot day through delivered edit, on-site or on-location.</p>
-        <span class="service-from">FROM $250 <svg style="width:12px;height:12px"><use href="#i-arrow"/></svg></span>
+        <div class="service-icon"><svg><use href="#i-pen"/></svg></div>
+        <h3>Script Writing</h3>
+        <p>Researched, hook-first scripts written by a human — or quick AI-assisted drafts.</p>
+        <span class="service-from">FROM $5 <svg style="width:12px;height:12px"><use href="#i-arrow"/></svg></span>
+      </div>
+      <div class="service-card reveal service-card--wide">
+        <div class="service-icon"><svg><use href="#i-trend"/></svg></div>
+        <h3>Channel Management &amp; Boosting</h3>
+        <p>Handled by our growth partner — SEO, scheduling, analytics and boosting to grow your channel.</p>
+        <span class="service-from">$30 <svg style="width:12px;height:12px"><use href="#i-arrow"/></svg></span>
       </div>
     </div>
   </div>
@@ -872,169 +916,117 @@ footer{border-top:1px solid var(--line);padding:60px 0 30px;}
 <section id="pricing">
   <div class="container">
     <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
-      <span class="eyebrow-sm">INVESTMENT</span>
-      <h2>Simple, transparent pricing.</h2>
-      <p>Starting rates by category — final quote depends on footage length, raw material quality and turnaround. Need something custom? We'll quote it free within 24 hours.</p>
+      <span class="eyebrow-sm">PRICING</span>
+      <h2>Everything your channel needs.</h2>
+      <p>Edit, thumbnail, voice, script and growth — pick what you need, tap a price and it opens WhatsApp with your order pre-filled.</p>
     </div>
 
-    <div class="tabbar" id="priceTabs" style="justify-content:center;">
-      <button class="active" data-ptab="yt">YouTube &amp; Shorts</button>
-      <button data-ptab="re">Real Estate</button>
-      <button data-ptab="mk">Marketing</button>
-      <button data-ptab="doc">Documentary</button>
-      <button data-ptab="th">Thumbnails &amp; Posts</button>
+    <div class="price-grid">
+      <div class="price-card price-card--wide reveal">
+        <div class="pc-head">
+          <div class="service-icon"><svg><use href="#i-film"/></svg></div>
+          <div>
+            <h3>YouTube Video Editing</h3>
+            <p>Priced by final video length. Cuts, pacing, captions, SFX &amp; music included.</p>
+          </div>
+        </div>
+        <div class="opt-list opt-list--grid">
+          <a class="opt" href="https://wa.me/94719780807?text=Hi%20US%20Media%21%20I%27d%20like%20to%20order%20YouTube%20video%20editing%20%286%E2%80%938%20minutes%2C%20%2420%29.%20Here%27s%20what%20I%20need%3A" target="_blank" rel="noopener">
+            <span class="opt-label">6–8 minutes<small>Short long-form</small></span>
+            <span class="opt-price">$20</span>
+            <svg class="opt-go"><use href="#i-arrow"/></svg>
+          </a>
+          <a class="opt" href="https://wa.me/94719780807?text=Hi%20US%20Media%21%20I%27d%20like%20to%20order%20YouTube%20video%20editing%20%288%E2%80%9310%20minutes%2C%20%2430%29.%20Here%27s%20what%20I%20need%3A" target="_blank" rel="noopener">
+            <span class="opt-label">8–10 minutes<small>Standard upload</small></span>
+            <span class="opt-price">$30</span>
+            <svg class="opt-go"><use href="#i-arrow"/></svg>
+          </a>
+          <a class="opt" href="https://wa.me/94719780807?text=Hi%20US%20Media%21%20I%27d%20like%20to%20order%20YouTube%20video%20editing%20%2810%E2%80%9320%20minutes%2C%20%2435%29.%20Here%27s%20what%20I%20need%3A" target="_blank" rel="noopener">
+            <span class="opt-label">10–20 minutes<small>Deep-dive &amp; documentary style</small></span>
+            <span class="opt-price">$35</span>
+            <svg class="opt-go"><use href="#i-arrow"/></svg>
+          </a>
+          <a class="opt" href="https://wa.me/94719780807?text=Hi%20US%20Media%21%20I%27d%20like%20to%20order%20YouTube%20video%20editing%20%2820%2B%20minutes%2C%20%2440%29.%20Here%27s%20what%20I%20need%3A" target="_blank" rel="noopener">
+            <span class="opt-label">20+ minutes<small>Long-form &amp; recaps</small></span>
+            <span class="opt-price">$40</span>
+            <svg class="opt-go"><use href="#i-arrow"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="price-card reveal">
+        <div class="pc-head">
+          <div class="service-icon"><svg><use href="#i-image"/></svg></div>
+          <div><h3>Thumbnail Design</h3><p>The 3 seconds that decide the click.</p></div>
+        </div>
+        <div class="opt-list">
+          <a class="opt" href="https://wa.me/94719780807?text=Hi%20US%20Media%21%20I%27d%20like%20to%20order%20a%20thumbnail%20design%20%28%245%29.%20Here%27s%20my%20video%3A" target="_blank" rel="noopener">
+            <span class="opt-label">Thumbnail Design<small>High-CTR, niche-tested</small></span>
+            <span class="opt-price">$5</span>
+            <svg class="opt-go"><use href="#i-arrow"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="price-card reveal">
+        <div class="pc-head">
+          <div class="service-icon"><svg><use href="#i-mic"/></svg></div>
+          <div><h3>Voice Over</h3><p>Narration that holds attention.</p></div>
+        </div>
+        <div class="opt-list">
+          <a class="opt" href="https://wa.me/94719780807?text=Hi%20US%20Media%21%20I%27d%20like%20to%20order%20a%20Human%20Voice%20Over%20%28%2425%29.%20Here%27s%20my%20script%3A" target="_blank" rel="noopener">
+            <span class="opt-label">Human Voice<small>Natural, expressive narration</small></span>
+            <span class="opt-price">$25</span>
+            <svg class="opt-go"><use href="#i-arrow"/></svg>
+          </a>
+          <a class="opt" href="https://wa.me/94719780807?text=Hi%20US%20Media%21%20I%27d%20like%20to%20order%20an%20AI%20Voice%20Over%20%28%245%29.%20Here%27s%20my%20script%3A" target="_blank" rel="noopener">
+            <span class="opt-label">AI Voice<small>Fast, clean AI narration</small></span>
+            <span class="opt-price">$5</span>
+            <svg class="opt-go"><use href="#i-arrow"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="price-card reveal">
+        <div class="pc-head">
+          <div class="service-icon"><svg><use href="#i-pen"/></svg></div>
+          <div><h3>Script Writing</h3><p>Hooks, structure and retention beats.</p></div>
+        </div>
+        <div class="opt-list">
+          <a class="opt" href="https://wa.me/94719780807?text=Hi%20US%20Media%21%20I%27d%20like%20to%20order%20a%20Human%20Written%20Script%20%28%2425%29.%20My%20video%20topic%20is%3A" target="_blank" rel="noopener">
+            <span class="opt-label">Human Written<small>Researched, story-driven script</small></span>
+            <span class="opt-price">$25</span>
+            <svg class="opt-go"><use href="#i-arrow"/></svg>
+          </a>
+          <a class="opt" href="https://wa.me/94719780807?text=Hi%20US%20Media%21%20I%27d%20like%20to%20order%20an%20AI%20Script%20%28%245%29.%20My%20video%20topic%20is%3A" target="_blank" rel="noopener">
+            <span class="opt-label">AI Script<small>Quick AI-assisted draft</small></span>
+            <span class="opt-price">$5</span>
+            <svg class="opt-go"><use href="#i-arrow"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="price-card price-card--wide price-card--partner reveal">
+        <span class="pkg-ribbon">GROWTH PARTNER</span>
+        <div class="partner-inner">
+          <div class="pc-head">
+            <div class="service-icon"><svg><use href="#i-trend"/></svg></div>
+            <div>
+              <h3>Channel Management &amp; Boosting</h3>
+              <p>Run by our trusted growth partner — upload scheduling, SEO titles, tags &amp; descriptions, analytics review and channel boosting to get your videos in front of the right audience.</p>
+            </div>
+          </div>
+          <div class="partner-cta">
+            <div class="pkg-price">$30</div>
+            <a href="https://wa.me/94751384800?text=Hi%21%20I%20found%20you%20through%20US%20Media.%20I%27m%20interested%20in%20Channel%20Management%20%26%20Boosting%20%28%2430%29.%20My%20channel%20is%3A" target="_blank" rel="noopener" class="btn btn-primary">Chat with our partner on WhatsApp <svg><use href="#i-arrow"/></svg></a>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="price-panel active" data-ppanel="yt">
-      <table class="price-table">
-        <tr><td>YouTube Long-Form <span class="tsub">Standard cut, up to 15 min</span></td><td>$45</td></tr>
-        <tr><td>YouTube Long-Form — Advanced <span class="tsub">Heavy motion graphics/VFX, up to 20 min</span></td><td>$85</td></tr>
-        <tr><td>Shorts / Reels / TikTok <span class="tsub">Up to 60 sec, captions included</span></td><td>$18</td></tr>
-        <tr><td>Movie / Anime Recap <span class="tsub">Up to 20 min, voiceover sync + captions</span></td><td>$60</td></tr>
-        <tr><td>Top 10 / Countdown Edit</td><td>$50</td></tr>
-        <tr><td>Horror / Storytime Narrative</td><td>$55</td></tr>
-        <tr><td>Gaming Highlight / Montage</td><td>$40</td></tr>
-      </table>
-    </div>
-
-    <div class="price-panel" data-ppanel="re">
-      <table class="price-table">
-        <tr><td>Standard Property Walkthrough <span class="tsub">Up to 3 min</span></td><td>$70</td></tr>
-        <tr><td>Cinematic Listing Film <span class="tsub">Color grade + music + motion titles</span></td><td>$120</td></tr>
-        <tr><td>Agent Branding Reel</td><td>$90</td></tr>
-        <tr><td>Drone Footage Edit <span class="tsub">Add-on to any package above</span></td><td>+$30</td></tr>
-      </table>
-    </div>
-
-    <div class="price-panel" data-ppanel="mk">
-      <table class="price-table">
-        <tr><td>Instagram Reel / Story Ad</td><td>$35</td></tr>
-        <tr><td>Facebook Ad Video</td><td>$40</td></tr>
-        <tr><td>TikTok Ad</td><td>$35</td></tr>
-        <tr><td>YouTube Ad <span class="tsub">In-stream / pre-roll, up to 60 sec</span></td><td>$55</td></tr>
-        <tr><td>Multi-Platform Bundle <span class="tsub">All 4 formats cut from one raw clip — save $35</span></td><td>$130</td></tr>
-      </table>
-    </div>
-
-    <div class="price-panel" data-ppanel="doc">
-      <table class="price-table">
-        <tr><td>Short Documentary <span class="tsub">Up to 10 min</span></td><td>$250</td></tr>
-        <tr><td>Interview-Based Documentary <span class="tsub">Up to 20 min</span></td><td>$400</td></tr>
-        <tr><td>Episodic / Mini-Series <span class="tsub">Per episode</span></td><td>$350</td></tr>
-      </table>
-    </div>
-
-    <div class="price-panel" data-ppanel="th">
-      <table class="price-table">
-        <tr><td>Single Thumbnail</td><td>$12</td></tr>
-        <tr><td>Pack of 5 <span class="tsub">Save $10</span></td><td>$50</td></tr>
-        <tr><td>Pack of 10 <span class="tsub">Save $30</span></td><td>$90</td></tr>
-        <tr><td>A/B Test Pack <span class="tsub">2 variations per video</span></td><td>$20</td></tr>
-        <tr><td>Single Social Post</td><td>$10</td></tr>
-        <tr><td>Carousel Post <span class="tsub">Up to 5 slides</span></td><td>$30</td></tr>
-        <tr><td>Story Design</td><td>$8</td></tr>
-        <tr><td>Monthly Content Pack <span class="tsub">20 posts</span></td><td>$150</td></tr>
-      </table>
-    </div>
-
-    <p class="price-note"><svg><use href="#i-clock"/></svg> Rates shown are starting prices in USD. Rush delivery (under 24h) available for +25%.</p>
+    <p class="price-note"><svg><use href="#i-clock"/></svg> All prices in USD. Not sure what you need? Message us and we'll put together a bundle for your channel.</p>
     <div class="center-btn" style="margin-top:28px;">
-      <a href="https://wa.me/94719780807?text=Hi%20US%20Media%21%20I%27d%20like%20to%20order%20a%20video%20edit.%20Here%27s%20what%20I%20need%3A" target="_blank" rel="noopener" class="btn btn-primary">Order via WhatsApp <svg><use href="#i-arrow"/></svg></a>
-    </div>
-
-    <!-- Videography packages -->
-    <div class="mt-64 reveal">
-      <div class="section-head" style="margin-bottom:36px;">
-        <span class="eyebrow-sm">ON LOCATION</span>
-        <h2 style="font-size:clamp(26px,3.4vw,38px);">Videography packages</h2>
-      </div>
-      <div class="pkg-grid">
-        <div class="pkg-card">
-          <h3>Essential</h3>
-          <p class="pkg-desc">A tight half-day shoot for a single focused video.</p>
-          <div class="pkg-price">$250</div>
-          <ul>
-            <li><svg><use href="#i-check"/></svg> Half-day shoot (up to 3 hrs)</li>
-            <li><svg><use href="#i-check"/></svg> Single camera setup</li>
-            <li><svg><use href="#i-check"/></svg> Edited 1 main video included</li>
-            <li><svg><use href="#i-check"/></svg> 2 rounds of revisions</li>
-          </ul>
-          <a href="https://wa.me/94719780807?text=Hi%20US%20Media%21%20I%27d%20like%20to%20order%20the%20Essential%20Videography%20Package%20%28%24250%29%20-%20half-day%20shoot%20%2B%201%20edited%20video.%20Can%20you%20share%20the%20next%20steps%3F" target="_blank" rel="noopener" class="btn btn-ghost btn-block">Order via WhatsApp</a>
-        </div>
-        <div class="pkg-card featured">
-          <span class="pkg-ribbon">MOST BOOKED</span>
-          <h3>Standard</h3>
-          <p class="pkg-desc">Full-day coverage with room for shorts and drone.</p>
-          <div class="pkg-price">$450</div>
-          <ul>
-            <li><svg><use href="#i-check"/></svg> Full-day shoot (up to 6 hrs)</li>
-            <li><svg><use href="#i-check"/></svg> 2 cameras + drone add-on available</li>
-            <li><svg><use href="#i-check"/></svg> 1 cinematic main video + 3 shorts</li>
-            <li><svg><use href="#i-check"/></svg> Color grade &amp; sound design</li>
-            <li><svg><use href="#i-check"/></svg> 3 rounds of revisions</li>
-          </ul>
-          <a href="https://wa.me/94719780807?text=Hi%20US%20Media%21%20I%27d%20like%20to%20order%20the%20Standard%20Videography%20Package%20%28%24450%29%20-%20full-day%20shoot%20%2B%201%20cinematic%20video%20%2B%203%20shorts.%20Can%20you%20share%20the%20next%20steps%3F" target="_blank" rel="noopener" class="btn btn-primary btn-block">Order via WhatsApp</a>
-        </div>
-        <div class="pkg-card">
-          <h3>Premium</h3>
-          <p class="pkg-desc">Full production day with a director on site.</p>
-          <div class="pkg-price">$850</div>
-          <ul>
-            <li><svg><use href="#i-check"/></svg> Full-day multi-cam shoot + drone</li>
-            <li><svg><use href="#i-check"/></svg> 1 main video + 5 shorts + 5 thumbnails</li>
-            <li><svg><use href="#i-check"/></svg> On-site director &amp; shot list</li>
-            <li><svg><use href="#i-check"/></svg> Unlimited revisions</li>
-          </ul>
-          <a href="https://wa.me/94719780807?text=Hi%20US%20Media%21%20I%27d%20like%20to%20order%20the%20Premium%20Videography%20Package%20%28%24850%29%20-%20full-day%20multi-cam%20%2B%20drone%20%2B%205%20shorts%20%2B%205%20thumbnails.%20Can%20you%20share%20the%20next%20steps%3F" target="_blank" rel="noopener" class="btn btn-ghost btn-block">Order via WhatsApp</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Retainers -->
-    <div class="mt-64 reveal">
-      <div class="section-head" style="margin-bottom:36px;">
-        <span class="eyebrow-sm">FOR ONGOING CONTENT</span>
-        <h2 style="font-size:clamp(26px,3.4vw,38px);">Monthly retainers</h2>
-      </div>
-      <div class="pkg-grid">
-        <div class="pkg-card">
-          <h3>Starter</h3>
-          <p class="pkg-desc">For creators posting a few times a month.</p>
-          <div class="pkg-price">$200<span>/mo</span></div>
-          <ul>
-            <li><svg><use href="#i-check"/></svg> 4 long-form videos (8\u201312 min each)</li>
-            <li><svg><use href="#i-check"/></svg> 8 shorts</li>
-            <li><svg><use href="#i-check"/></svg> 48-hr delivery</li>
-            <li><svg><use href="#i-check"/></svg> Standard revisions</li>
-          </ul>
-          <a href="https://wa.me/94719780807?text=Hi%20US%20Media%21%20I%27d%20like%20to%20start%20the%20Starter%20retainer%20%28%24200/mo%29%20-%204%20long-form%20videos%20%288-12%20min%29%20%2B%208%20shorts.%20Can%20you%20share%20the%20next%20steps%3F" target="_blank" rel="noopener" class="btn btn-ghost btn-block">Order via WhatsApp</a>
-        </div>
-        <div class="pkg-card featured">
-          <span class="pkg-ribbon">MOST POPULAR</span>
-          <h3>Growth</h3>
-          <p class="pkg-desc">For channels and brands publishing weekly.</p>
-          <div class="pkg-price">$350<span>/mo</span></div>
-          <ul>
-            <li><svg><use href="#i-check"/></svg> 8 long-form videos (8\u201315 min each)</li>
-            <li><svg><use href="#i-check"/></svg> 10 shorts</li>
-            <li><svg><use href="#i-check"/></svg> Priority 36-hr delivery</li>
-            <li><svg><use href="#i-check"/></svg> Dedicated editor assigned</li>
-          </ul>
-          <a href="https://wa.me/94719780807?text=Hi%20US%20Media%21%20I%27d%20like%20to%20start%20the%20Growth%20retainer%20%28%24350/mo%29%20-%208%20long-form%20videos%20%288-15%20min%29%20%2B%2010%20shorts.%20Can%20you%20share%20the%20next%20steps%3F" target="_blank" rel="noopener" class="btn btn-primary btn-block">Order via WhatsApp</a>
-        </div>
-        <div class="pkg-card">
-          <h3>Pro</h3>
-          <p class="pkg-desc">For high-volume channels and agencies.</p>
-          <div class="pkg-price">$600<span>/mo</span></div>
-          <ul>
-            <li><svg><use href="#i-check"/></svg> 12 long-form videos (8\u201315 min each)</li>
-            <li><svg><use href="#i-check"/></svg> 16 shorts</li>
-            <li><svg><use href="#i-check"/></svg> 24-hr rush delivery</li>
-            <li><svg><use href="#i-check"/></svg> Dedicated editor + priority support</li>
-          </ul>
-          <a href="https://wa.me/94719780807?text=Hi%20US%20Media%21%20I%27d%20like%20to%20start%20the%20Pro%20retainer%20%28%24600/mo%29%20-%2012%20long-form%20videos%20%288-15%20min%29%20%2B%2016%20shorts.%20Can%20you%20share%20the%20next%20steps%3F" target="_blank" rel="noopener" class="btn btn-ghost btn-block">Order via WhatsApp</a>
-        </div>
-      </div>
+      <a href="https://wa.me/94719780807?text=Hi%20US%20Media%21%20I%27d%20like%20a%20quote%20for%20my%20YouTube%20channel.%20Here%27s%20what%20I%20need%3A" target="_blank" rel="noopener" class="btn btn-primary">Order via WhatsApp <svg><use href="#i-arrow"/></svg></a>
     </div>
   </div>
 </section>
@@ -1172,14 +1164,10 @@ footer{border-top:1px solid var(--line);padding:60px 0 30px;}
         <label>Project type</label>
         <select name="project">
           <option>YouTube Video Editing</option>
-          <option>Shorts / Reels Editing</option>
-          <option>Real Estate Video Editing</option>
-          <option>Marketing Video Editing</option>
-          <option>Documentary Editing</option>
           <option>Thumbnail Design</option>
-          <option>Post Design</option>
-          <option>Videography</option>
-          <option>Monthly Retainer</option>
+          <option>Voice Over (Human / AI)</option>
+          <option>Script Writing (Human / AI)</option>
+          <option>Channel Management &amp; Boosting</option>
         </select>
       </div>
       <div>
@@ -1197,7 +1185,7 @@ footer{border-top:1px solid var(--line);padding:60px 0 30px;}
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="logo"><span class="rec"></span>US <span class="hl">MEDIA</span></a>
+        <a href="index.html" class="logo"><img src="images/logo-mark.png" alt="US Media logo" class="logo-mark" width="38" height="32">US <span class="hl">MEDIA</span></a>
         <p>A video editing studio for YouTube channels, real estate agents, marketers and documentary makers. Frame by frame.</p>
         <p style="margin-top:10px;">
           <a href="mailto:ushithasamudaya@gmail.com" style="color:var(--paper);opacity:.8;">ushithasamudaya@gmail.com</a><br>
@@ -1216,10 +1204,11 @@ footer{border-top:1px solid var(--line);padding:60px 0 30px;}
       <div>
         <h5>Services</h5>
         <ul>
-          <li><a href="#pricing">Video Editing</a></li>
-          <li><a href="#thumbnails">Thumbnail Design</a></li>
-          <li><a href="#posts">Post Design</a></li>
-          <li><a href="#pricing">Videography</a></li>
+          <li><a href="#pricing">YouTube Video Editing</a></li>
+          <li><a href="#pricing">Thumbnail Design</a></li>
+          <li><a href="#pricing">Voice Over</a></li>
+          <li><a href="#pricing">Script Writing</a></li>
+          <li><a href="#pricing">Channel Management</a></li>
         </ul>
       </div>
       <div>
@@ -1358,17 +1347,6 @@ function buildMarquee(){
   return html;
 }
 document.getElementById('marquee1').innerHTML = buildMarquee();
-
-/* ================= PRICING TABS ================= */
-document.getElementById('priceTabs').addEventListener('click', (e)=>{
-  const btn = e.target.closest('button');
-  if(!btn) return;
-  document.querySelectorAll('#priceTabs button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  const key = btn.dataset.ptab;
-  document.querySelectorAll('.price-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelector(`.price-panel[data-ppanel="${key}"]`).classList.add('active');
-});
 
 /* ================= NAV SCROLL STATE ================= */
 const header = document.getElementById('site-header');
