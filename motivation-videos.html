@@ -8,30 +8,30 @@
 <link rel="icon" type="image/png" href="images/logo-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&amp;family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <style>
 
 /* ============================================================
    US MEDIA — design tokens
-   Void #0B0B14 · Ink #14141F · Violet #8B5CF6 · Magenta #FF3D8A
-   Cyan #22D3EE · Yellow #FFD23F · Paper #F5F3FF · Muted #9B96B0
-   Display: Unbounded · Body: Inter · Mono/timecode: JetBrains Mono
+   Night #120D0A · Ink #1D1612 · Orange #FF7A1A · Red #E8321E
+   Gold #FFC23D · Yellow #FFD23F · Cream #FFF7EE · Muted #B5A69B
+   Display: Bricolage Grotesque · Body: DM Sans · Mono/timecode: JetBrains Mono
    ============================================================ */
 :root{
-  --void:#0B0B14;
-  --ink:#14141F;
-  --ink-2:#1B1B29;
+  --void:#120D0A;
+  --ink:#1D1612;
+  --ink-2:#2A201A;
   --ink-3:#22223300;
-  --line: rgba(245,243,255,0.09);
-  --violet:#8B5CF6;
-  --violet-soft: rgba(139,92,246,0.16);
-  --magenta:#FF3D8A;
-  --cyan:#22D3EE;
+  --line: rgba(255,247,238,0.09);
+  --violet:#FF7A1A;
+  --violet-soft: rgba(255,122,26,0.16);
+  --magenta:#E8321E;
+  --cyan:#FFC23D;
   --yellow:#FFD23F;
-  --paper:#F5F3FF;
-  --muted:#9B96B0;
-  --font-display:'Unbounded', sans-serif;
-  --font-body:'Inter', sans-serif;
+  --paper:#FFF7EE;
+  --muted:#B5A69B;
+  --font-display:'Bricolage Grotesque', sans-serif;
+  --font-body:'DM Sans', sans-serif;
   --font-mono:'JetBrains Mono', monospace;
   --container: 1200px;
   --radius: 18px;
@@ -69,19 +69,19 @@ p{margin:0;}
 /* ---------- Playhead / scroll progress (signature element) ---------- */
 #playhead{
   position:fixed;top:0;left:0;height:3px;width:100%;
-  background:rgba(245,243,255,0.06);
+  background:rgba(255,247,238,0.06);
   z-index:9999;
 }
 #playhead-fill{
   height:100%;width:0%;
   background:linear-gradient(90deg,var(--cyan),var(--violet),var(--magenta));
-  box-shadow:0 0 12px rgba(139,92,246,0.7);
+  box-shadow:0 0 12px rgba(255,122,26,0.7);
   transition:width .05s linear;
 }
 #timecode{
   position:fixed;bottom:18px;right:18px;z-index:9998;
   font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
-  color:var(--paper);background:rgba(20,20,31,0.85);
+  color:var(--paper);background:rgba(29,22,18,0.85);
   border:1px solid var(--line);backdrop-filter:blur(8px);
   padding:8px 12px;border-radius:100px;
   display:flex;align-items:center;gap:8px;
@@ -103,9 +103,9 @@ p{margin:0;}
 .btn svg{width:16px;height:16px;}
 .btn-primary{
   background:linear-gradient(90deg,var(--violet),var(--magenta));
-  color:#fff;box-shadow:0 8px 24px rgba(255,61,138,0.25);
+  color:#120D0A;box-shadow:0 8px 24px rgba(232,50,30,0.25);
 }
-.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 34px rgba(255,61,138,0.4);}
+.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 34px rgba(232,50,30,0.4);}
 .btn-ghost{
   background:transparent;color:var(--paper);border-color:var(--line);
 }
@@ -119,7 +119,7 @@ header{
   border-bottom:1px solid transparent;
 }
 header.scrolled{
-  padding:12px 0;background:rgba(11,11,20,0.82);backdrop-filter:blur(14px);
+  padding:12px 0;background:rgba(18,13,10,0.82);backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line);
 }
 .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;}
@@ -181,7 +181,7 @@ header.scrolled{
   display:inline-flex;align-items:center;gap:10px;
   font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;
   color:var(--cyan);border:1px solid var(--line);padding:8px 16px;border-radius:100px;
-  margin-bottom:26px;background:rgba(34,211,238,0.06);
+  margin-bottom:26px;background:rgba(255,194,61,0.06);
 }
 .hero h1{
   font-size:clamp(42px,8vw,92px);font-weight:800;
@@ -266,9 +266,9 @@ section{padding:120px 0;position:relative;}
 }
 .service-card::before{
   content:'';position:absolute;inset:0;opacity:0;transition:opacity .35s;
-  background:radial-gradient(340px circle at 30% 0%, rgba(139,92,246,0.18), transparent 60%);
+  background:radial-gradient(340px circle at 30% 0%, rgba(255,122,26,0.18), transparent 60%);
 }
-.service-card:hover{transform:translateY(-8px);border-color:rgba(139,92,246,.5);box-shadow:0 20px 50px rgba(139,92,246,0.15);}
+.service-card:hover{transform:translateY(-8px);border-color:rgba(255,122,26,.5);box-shadow:0 20px 50px rgba(255,122,26,0.15);}
 .service-card:hover::before{opacity:1;}
 .service-icon{
   width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
@@ -352,7 +352,7 @@ section{padding:120px 0;position:relative;}
 .tone-c{background:linear-gradient(135deg,var(--magenta),var(--yellow));}
 .tone-d{background:linear-gradient(120deg,var(--cyan),var(--violet) 55%,var(--magenta));}
 .tone-e{background:linear-gradient(135deg,var(--yellow),var(--magenta));}
-.tone-f{background:linear-gradient(160deg,#2b1b4a,var(--void) 75%);}
+.tone-f{background:linear-gradient(160deg,#3a1d10,var(--void) 75%);}
 
 /* shorts row (9:16) */
 .shorts-row{display:flex;gap:18px;overflow-x:auto;padding:6px 2px 18px;scroll-snap-type:x mandatory;}
@@ -440,7 +440,7 @@ section{padding:120px 0;position:relative;}
   position:relative;transition:transform .3s, border-color .3s;
 }
 .pkg-card:hover{transform:translateY(-6px);}
-.pkg-card.featured{border-color:var(--magenta);background:linear-gradient(180deg, rgba(255,61,138,0.08), var(--ink) 30%);}
+.pkg-card.featured{border-color:var(--magenta);background:linear-gradient(180deg, rgba(232,50,30,0.08), var(--ink) 30%);}
 .pkg-ribbon{
   position:absolute;top:-13px;left:28px;background:linear-gradient(90deg,var(--violet),var(--magenta));
   color:#fff;font-size:11px;font-weight:800;padding:6px 14px;border-radius:100px;letter-spacing:.03em;
@@ -584,7 +584,7 @@ footer{border-top:1px solid var(--line);padding:60px 0 30px;}
   display:block;background:var(--ink);border:1px solid var(--line);border-radius:16px;overflow:hidden;
   transition:transform .3s cubic-bezier(.2,.8,.2,1), border-color .3s, box-shadow .3s;
 }
-.hub-card:hover{transform:translateY(-7px);border-color:rgba(139,92,246,.55);box-shadow:0 18px 40px rgba(139,92,246,0.16);}
+.hub-card:hover{transform:translateY(-7px);border-color:rgba(255,122,26,.55);box-shadow:0 18px 40px rgba(255,122,26,0.16);}
 .hub-thumb{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative;}
 .hub-thumb::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 20%, rgba(255,255,255,.2), transparent 60%);}
 .hub-thumb svg{width:28px;height:28px;color:#fff;position:relative;z-index:1;}
@@ -681,7 +681,7 @@ footer{border-top:1px solid var(--line);padding:60px 0 30px;}
       <a href="index.html">Home</a>
       <a href="portfolio.html">Portfolio</a>
       <a href="index.html#pricing">Pricing</a>
-      <a href="index.html#process">Process</a>
+      <a href="index.html#how">How to Order</a>
       <a href="index.html#reviews">Reviews</a>
     </nav>
     <div class="nav-cta">
@@ -697,7 +697,7 @@ footer{border-top:1px solid var(--line);padding:60px 0 30px;}
   <a href="index.html">Home</a>
   <a href="portfolio.html">Portfolio</a>
   <a href="index.html#pricing">Pricing</a>
-  <a href="index.html#process">Process</a>
+  <a href="index.html#how">How to Order</a>
   <a href="index.html#reviews">Reviews</a>
   <a href="index.html#contact">Contact</a>
 </div>
@@ -792,7 +792,7 @@ footer{border-top:1px solid var(--line);padding:60px 0 30px;}
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo"><img src="images/logo-mark.png" alt="US Media logo" class="logo-mark" width="38" height="32">US <span class="hl">MEDIA</span></a>
-        <p>A video editing studio for YouTube channels, real estate agents, marketers and documentary makers. Frame by frame.</p>
+        <p>Video editing and graphic design for YouTubers, real estate agents, brands and marketers.</p>
         <p style="margin-top:10px;">
           <a href="mailto:ushithasamudaya@gmail.com" style="color:var(--paper);opacity:.8;">ushithasamudaya@gmail.com</a><br>
           <a href="https://wa.me/94719780807" target="_blank" rel="noopener" style="color:var(--paper);opacity:.8;">Message on WhatsApp</a>
@@ -803,17 +803,16 @@ footer{border-top:1px solid var(--line);padding:60px 0 30px;}
         <ul>
           <li><a href="index.html#services">Services</a></li>
           <li><a href="portfolio.html">Portfolio</a></li>
-          <li><a href="index.html#process">Process</a></li>
-          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#how">How to Order</a></li>
         </ul>
       </div>
       <div>
         <h5>Services</h5>
         <ul>
-          <li><a href="index.html#pricing">Video Editing</a></li>
-          <li><a href="index.html#thumbnails">Thumbnail Design</a></li>
-          <li><a href="index.html#posts">Post Design</a></li>
-          <li><a href="index.html#pricing">Videography</a></li>
+          <li><a href="index.html#pricing">YouTube Videos</a></li>
+          <li><a href="index.html#pricing">Real Estate Videos</a></li>
+          <li><a href="index.html#pricing">Promotional &amp; Marketing</a></li>
+          <li><a href="index.html#pricing">Thumbnails, Scripts &amp; Voice</a></li>
         </ul>
       </div>
       <div>
