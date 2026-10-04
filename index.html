@@ -318,13 +318,14 @@ header.scrolled{background:rgba(18,13,10,.9);backdrop-filter:blur(14px);padding:
 
 /* ---------- Footer ---------- */
 footer{background:var(--night);color:var(--muted-dark);padding:70px 0 30px;}
-.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:50px;}
+.foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:50px;}
 .foot-grid h5{font-family:var(--font-display);color:var(--cream);font-size:16px;margin:0 0 16px;}
 .foot-grid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;font-size:14.5px;}
 .foot-grid a:hover{color:var(--gold);}
 .foot-brand img{width:130px;height:auto;margin-bottom:18px;}
 .foot-brand p{font-size:14.5px;max-width:320px;}
 .foot-bottom{border-top:1px solid var(--line-dark);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13.5px;}
+@media (max-width:1000px){.foot-grid{grid-template-columns:1fr 1fr 1fr;}}
 @media (max-width:860px){.foot-grid{grid-template-columns:1fr 1fr;}}
 @media (max-width:520px){.foot-grid{grid-template-columns:1fr;}}
 
@@ -445,6 +446,30 @@ footer{background:var(--night);color:var(--muted-dark);padding:70px 0 30px;}
 .work-card:hover img{filter:saturate(1.2);}
 .step .num{transition:letter-spacing .3s;}
 .step:hover .num{letter-spacing:.04em;}
+
+/* ---------- Studio switch + more-from cards ---------- */
+.studio-switch{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+.studio-switch a{font-size:13px;font-weight:700;padding:7px 14px;border-radius:100px;border:1px solid var(--line-dark);color:var(--muted-dark);transition:all .2s;}
+.studio-switch a:hover{border-color:var(--gold);color:var(--gold);}
+.studio-switch a.on{background:var(--flame);color:var(--night);border-color:transparent;}
+.more-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+.more-card{background:var(--night);color:var(--cream);border-radius:26px;overflow:hidden;display:flex;flex-direction:column;transition:transform .3s, box-shadow .3s;}
+.more-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+.more-media{height:260px;overflow:hidden;position:relative;}
+.more-media svg{width:100%;height:100%;transition:transform 1s cubic-bezier(.2,.8,.2,1);}
+.more-card:hover .more-media svg{transform:scale(1.06);}
+.more-media.web{background:#231B16;padding:34px 30px 0;}
+.more-media.web img{width:100%;border-radius:8px 8px 0 0;transition:transform 6s ease;}
+.more-card:hover .more-media.web img{transform:translateY(-40%);}
+.mini-browser{position:absolute;top:12px;left:30px;display:flex;gap:6px;}
+.mini-browser i{width:9px;height:9px;border-radius:50%;background:#FF5F57;}.mini-browser i:nth-child(2){background:#FEBC2E;}.mini-browser i:nth-child(3){background:#28C840;}
+.more-body{padding:26px 28px 30px;}
+.more-body span{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);}
+.more-body h3{font-size:26px;margin:10px 0 16px;}
+.more-body b{display:inline-flex;align-items:center;gap:8px;color:var(--gold);}
+.more-body b svg{width:18px;height:18px;transition:transform .2s;}
+.more-card:hover .more-body b svg{transform:translateX(5px);}
+@media (max-width:800px){.more-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -489,11 +514,11 @@ footer{background:var(--night);color:var(--muted-dark);padding:70px 0 30px;}
     <a href="index.html" class="logo"><img src="images/logo-mark.png" alt="" width="48" height="40"><span>US MEDIA<small>Graphic Design</small></span></a>
     <nav class="nav-links">
       <a href="#services">Services</a>
-      <a href="#how">How to Order</a>
       <a href="#packages">Packages</a>
       <a href="#pricing">Price List</a>
       <a href="#work">Our Work</a>
-      <a href="#faq">FAQ</a>
+      <a href="videography.html">Videography</a>
+      <a href="web-development.html">Websites</a>
     </nav>
     <div class="nav-right">
       <a href="#pricing" class="btn btn-flame" style="padding:11px 20px;">Start an Order</a>
@@ -512,6 +537,8 @@ footer{background:var(--night);color:var(--muted-dark);padding:70px 0 30px;}
   <a href="#work">Our Work</a>
   <a href="#faq">FAQ</a>
   <a href="#contact">Contact</a>
+  <a href="videography.html">Videography</a>
+  <a href="web-development.html">Websites</a>
 </div>
 
 <!-- ================= HERO ================= -->
@@ -520,7 +547,7 @@ footer{background:var(--night);color:var(--muted-dark);padding:70px 0 30px;}
   <div class="hero-blob b1"></div><div class="hero-blob b2"></div>
   <div class="container hero-grid">
     <div>
-      <span class="eyebrow">Video editing &amp; graphic design studio</span>
+      <div class="studio-switch"><a href="index.html" class="on">Video Editing</a><a href="videography.html">Videography</a><a href="web-development.html">Websites</a></div>
       <h1>Scroll-stopping<br><span class="rotator" aria-live="polite"><span class="flame-text rot-word">YouTube videos.</span></span></h1>
       <p class="hero-sub">YouTube, real estate, promotional and marketing videos, plus the thumbnail, script and voice over to go with them. Choose what you need, add it to your cart and send your order on WhatsApp.</p>
       <div class="hero-ctas">
@@ -712,6 +739,27 @@ footer{background:var(--night);color:var(--muted-dark);padding:70px 0 30px;}
   </div>
 </section>
 
+<!-- ================= MORE FROM US MEDIA ================= -->
+<section id="more" style="padding-top:30px;">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">More from US Media</span>
+      <h2>We also film &amp; build.</h2>
+      <p>Need it shot on location, or a website to show it off? Same team, same quality.</p>
+    </div>
+    <div class="more-grid">
+      <a href="videography.html" class="more-card reveal">
+        <div class="more-media" id="moreVideo"></div>
+        <div class="more-body"><span>Videography &amp; Photography</span><h3>Drone, interviews, vlogs, travel &amp; tourist shoots</h3><b>Explore Videography <svg><use href="#i-arrow"/></svg></b></div>
+      </a>
+      <a href="web-development.html" class="more-card reveal">
+        <div class="more-media web"><div class="mini-browser"><i></i><i></i><i></i></div><img src="images/work-usmedia-desktop.jpg" alt="" loading="lazy"></div>
+        <div class="more-body"><span>Websites &amp; Frontend</span><h3>Portfolio sites, landing pages &amp; business websites</h3><b>Explore Websites <svg><use href="#i-arrow"/></svg></b></div>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ================= CONTACT ================= -->
 <section id="contact" style="padding-top:20px;">
   <div class="container">
@@ -758,6 +806,15 @@ footer{background:var(--night);color:var(--muted-dark);padding:70px 0 30px;}
           <li><a href="#pricing" data-goto-tab="design">Script Writing</a></li>
           <li><a href="#pricing" data-goto-tab="design">Voice Over</a></li>
           <li><a href="#pricing" data-goto-tab="growth">Channel Management</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>More Services</h5>
+        <ul>
+          <li><a href="videography.html">Videography</a></li>
+          <li><a href="videography.html#services">Drone &amp; Travel Shoots</a></li>
+          <li><a href="web-development.html">Websites</a></li>
+          <li><a href="web-development.html#packages">Portfolio Websites</a></li>
         </ul>
       </div>
       <div>
@@ -808,6 +865,7 @@ footer{background:var(--night);color:var(--muted-dark);padding:70px 0 30px;}
 </aside>
 <div class="toast" id="toast"><svg><use href="#i-check"/></svg><span></span></div>
 
+<script src="js/scenes.js"></script>
 <script>
 /* ================= CONFIG ================= */
 const WA_MAIN = '94719780807';     // US Media
@@ -1185,6 +1243,8 @@ const menu = $('#mobileMenu');
 $('#openMenu').addEventListener('click', () => menu.classList.add('open'));
 $('#closeMenu').addEventListener('click', () => menu.classList.remove('open'));
 $$('a', menu).forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+$('#moreVideo').innerHTML = USM_SCENE('coast', 'DRONE · AERIAL');
+
 /* ================= EFFECTS ================= */
 // scroll progress bar
 const prog = $('#progress');
