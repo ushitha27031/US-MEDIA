@@ -12,7 +12,14 @@
    that visitor's own device.
    ============================================================ */
 const BOOKING_CONFIG = {
-  firebase: null,            // e.g. { apiKey: "...", authDomain: "...", projectId: "...", appId: "..." }
+  firebase: {                // usmedia-booking project (these web keys are public by design; Firestore rules protect the data)
+    apiKey: 'AIzaSyDzmV3wDuglOOiSG0rPvbgIlEf0SaQXOGY',
+    authDomain: 'usmedia-booking.firebaseapp.com',
+    projectId: 'usmedia-booking',
+    storageBucket: 'usmedia-booking.firebasestorage.app',
+    messagingSenderId: '255682885430',
+    appId: '1:255682885430:web:a9f5f358b19e0260866597',
+  },
   callmebotApiKey: '',       // e.g. '1234567'
   ownerPhone: '94719780807', // your WhatsApp number (international format, no +)
   zoomLink: '',              // e.g. 'https://us05web.zoom.us/j/1234567890?pwd=...'
