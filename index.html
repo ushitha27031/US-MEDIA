@@ -448,6 +448,17 @@ footer{background:var(--night);color:var(--muted-dark);padding:70px 0 30px;}
 .step .num{transition:letter-spacing .3s;}
 .step:hover .num{letter-spacing:.04em;}
 
+/* ---------- Tourist promo ---------- */
+.tour-promo{display:flex;align-items:center;gap:18px;margin:0 auto 26px;padding:20px 24px;border-radius:22px;background:linear-gradient(120deg,#2A1408,#120D0A 60%);border:1.5px solid rgba(255,194,61,.55);color:var(--cream);box-shadow:var(--shadow);transition:transform .25s, border-color .25s;}
+.tour-promo:hover{transform:translateY(-4px);border-color:var(--gold);}
+.tp-emoji{font-size:38px;flex:none;}
+.tour-promo div{flex:1;}
+.tour-promo small{display:block;font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);}
+.tour-promo b{display:block;font-family:var(--font-display);font-size:21px;line-height:1.2;margin:4px 0;}
+.tour-promo span{font-size:14px;color:var(--muted-dark);}
+.tour-promo em{font-style:normal;flex:none;background:var(--flame);color:var(--night);font-weight:800;padding:12px 18px;border-radius:100px;font-size:14px;}
+@media (max-width:700px){.tour-promo{flex-wrap:wrap;}.tour-promo em{width:100%;text-align:center;}}
+
 /* ---------- Studio switch + more-from cards ---------- */
 .studio-switch{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
 .studio-switch a{font-size:13px;font-weight:700;padding:7px 14px;border-radius:100px;border:1px solid var(--line-dark);color:var(--muted-dark);transition:all .2s;}
@@ -850,6 +861,11 @@ footer{background:var(--night);color:var(--muted-dark);padding:70px 0 30px;}
       <h2>We also film &amp; build.</h2>
       <p>Need it shot on location, or a website to show it off? Same team, same quality.</p>
     </div>
+    <a href="videography.html#tourist" class="tour-promo reveal">
+      <span class="tp-emoji">🌴</span>
+      <div><small>Tourist season offer</small><b>Visiting Sri Lanka? Get a FREE 2-minute cinematic film of your trip</b><span>Photo &amp; video from $99/day · + 3 free Reels · drone available</span></div>
+      <em>See packages →</em>
+    </a>
     <div class="more-grid">
       <a href="videography.html" class="more-card reveal">
         <div class="more-media" id="moreVideo"></div>
