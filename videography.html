@@ -394,6 +394,7 @@ const SERVICES = [
 ];
 
 /* Gallery: real work loads from Google Drive (`drive` = video id, `photo` = image id) or YouTube (`yt` = video id).
+   Titles here are what visitors see, so edit them freely.
    `scene` is the drawn fallback shown if Drive can't load, or for categories without real work yet. */
 const GALLERY = [
   {f:'realestate', drive:'1cli6LezW90tTNIrl5ov4Zw-mx5gwz18q', scene:'coast',     title:'Home Lands Skyline, Colombo', meta:'Real estate video', size:'wide'},
@@ -401,12 +402,12 @@ const GALLERY = [
   {f:'realestate', drive:'1VGDpBmvHkevuLTMh6-cTVgdGltRltaxJ', scene:'tea',       title:'Araliya Lands & Homes',       meta:'Real estate promo'},
   {f:'travel',     drive:'1gp1cLaixG7B_aAxDeeDJFJU2Lhn6XK2i', scene:'mountains', title:'Golden sunset',                meta:'Travel film'},
   {f:'travel',     photo:'1DUhfnEVBaLRu6fpI1RBy-EL14DCasK-c', scene:'stupa',     title:'Sigiriya',                     meta:'Travel photography', size:'wide'},
-  {f:'interview',  yt:'auFWXGsW7jQ', scene:'interview', title:'Interview', meta:'Interview'},
-  {f:'interview',  yt:'AnXHRNym2NE', scene:'interview', title:'Interview', meta:'Interview', size:'wide'},
-  {f:'interview',  yt:'aYbw6ay6YTY', scene:'interview', title:'Interview', meta:'Interview'},
-  {f:'interview',  yt:'d4kDARRbafY', scene:'interview', title:'Interview', meta:'Interview'},
-  {f:'interview',  yt:'5Er4H8Z4W1s', scene:'interview', title:'Interview', meta:'Interview'},
-  {f:'interview',  yt:'U5xtgsKH-lg', scene:'interview', title:'Interview', meta:'Interview'},
+  {f:'interview',  yt:'auFWXGsW7jQ', scene:'interview', title:"Behind the scenes walk-and-talk", meta:'Indoor interview'},
+  {f:'interview',  yt:'AnXHRNym2NE', scene:'interview', title:"Stories between the bookshelves", meta:'Bookshop interview', size:'wide'},
+  {f:'interview',  yt:'aYbw6ay6YTY', scene:'interview', title:"A traveller's view from the lake", meta:'Travel interview'},
+  {f:'interview',  yt:'d4kDARRbafY', scene:'interview', title:"Lakeside conversations", meta:'Travel interview'},
+  {f:'interview',  yt:'5Er4H8Z4W1s', scene:'interview', title:"Street interview with a traveller", meta:'On-the-street interview'},
+  {f:'interview',  yt:'U5xtgsKH-lg', scene:'interview', title:"First impressions of Sri Lanka", meta:'Travel interview'},
   {f:'vlog',       scene:'vlog',      title:'Sunset beach vlog',        meta:'Vlog shoot · sample'},
   {f:'tourist',    scene:'portrait',  title:'Golden hour on the rocks', meta:'Couple session · sample'},
   {f:'tourist',    scene:'stupa',     title:'Temple at dusk',           meta:'Holiday film · sample'},
@@ -452,15 +453,6 @@ $('#gTabs').addEventListener('click', e => {
     it.hidden = b.dataset.f !== 'all' && it.dataset.f !== b.dataset.f;
     if (!it.hidden){ it.style.animationDelay = (n++ * 60) + 'ms'; it.classList.remove('pop-in'); void it.offsetWidth; it.classList.add('pop-in'); }
   });
-});
-/* fill in real YouTube titles when available (falls back to "Interview") */
-GALLERY.forEach((g, i) => {
-  if (!g.yt) return;
-  fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${g.yt}`).then(r => r.json()).then(d => {
-    if (!d || !d.title) return;
-    g.title = d.title;
-    const b = $(`.g-item[data-i="${i}"] .cap b`); if (b) b.textContent = d.title;
-  }).catch(() => {});
 });
 const lb = $('#lightbox');
 $('#gallery-grid').addEventListener('click', e => {
