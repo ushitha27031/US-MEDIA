@@ -1,0 +1,29 @@
+rules_version = '2';
+// US Media booking rules: paste into Firebase console → Firestore Database → Rules → Publish.
+// - meetingSlots: public "taken" markers (no personal info). Anyone can read; a slot can be
+//   created once and never changed, so two people can't book the same time.
+// - meetingBookings: the client's details. Anyone can create one with its slot; only you can
+//   read them (in the Firebase console).
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /meetingSlots/{slotId} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasOnly(['start', 'createdAt'])
+        && request.resource.data.start is timestamp
+        && request.resource.data.start > request.time
+        && request.resource.data.createdAt == request.time
+        && existsAfter(/databases/$(database)/documents/meetingBookings/$(slotId));
+      allow update, delete: if false;
+    }
+    match /meetingBookings/{slotId} {
+      allow read, update, delete: if false;
+      allow create: if request.resource.data.keys().hasOnly(['start', 'name', 'contact', 'topic', 'notes', 'createdAt'])
+        && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 100
+        && request.resource.data.contact is string && request.resource.data.contact.size() > 0 && request.resource.data.contact.size() <= 120
+        && request.resource.data.topic is string && request.resource.data.topic.size() <= 80
+        && request.resource.data.notes is string && request.resource.data.notes.size() <= 1000
+        && request.resource.data.createdAt == request.time
+        && existsAfter(/databases/$(database)/documents/meetingSlots/$(slotId));
+    }
+  }
+}
