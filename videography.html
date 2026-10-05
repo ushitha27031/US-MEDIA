@@ -397,8 +397,8 @@ const SERVICES = [
    Titles here are what visitors see, so edit them freely.
    `scene` is the drawn fallback shown if Drive can't load, or for categories without real work yet. */
 const GALLERY = [
-  {f:'realestate', drive:'1cli6LezW90tTNIrl5ov4Zw-mx5gwz18q', scene:'coast',     title:'Home Lands Skyline, Colombo', meta:'Real estate video', size:'wide'},
-  {f:'realestate', drive:'1NGJp9Fy5Se3PUhBtIYI1mc13KUnmuzgM', scene:'bridge',    title:'House in Kottawa',            meta:'Property walkthrough', size:'tall'},
+  {f:'realestate', yt:'UAWVGnju9c8', scene:'coast',  title:'Home Lands Skyline, Colombo', meta:'Real estate video', size:'wide'},
+  {f:'realestate', yt:'TjeFTpDt8vY', scene:'bridge', title:'Modern home walkthrough',      meta:'Property tour', size:'tall'},
   {f:'realestate', drive:'1VGDpBmvHkevuLTMh6-cTVgdGltRltaxJ', scene:'tea',       title:'Araliya Lands & Homes',       meta:'Real estate promo'},
   {f:'travel',     drive:'1gp1cLaixG7B_aAxDeeDJFJU2Lhn6XK2i', scene:'mountains', title:'Golden sunset',                meta:'Travel film'},
   {f:'travel',     photo:'1DUhfnEVBaLRu6fpI1RBy-EL14DCasK-c', scene:'stupa',     title:'Sigiriya',                     meta:'Travel photography', size:'wide'},
@@ -474,11 +474,11 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); }
 /* ---------- hero reel ---------- */
 const REEL = [
   ['mountains', 'SIGIRIYA · TRAVEL', '1DUhfnEVBaLRu6fpI1RBy-EL14DCasK-c'],
-  ['coast', 'COLOMBO SKYLINE · REAL ESTATE', '1cli6LezW90tTNIrl5ov4Zw-mx5gwz18q'],
+  ['coast', 'COLOMBO SKYLINE · REAL ESTATE', null, 'UAWVGnju9c8'],
   ['portrait', 'GOLDEN SUNSET · TRAVEL', '1gp1cLaixG7B_aAxDeeDJFJU2Lhn6XK2i'],
-  ['bridge', 'KOTTAWA HOUSE · REAL ESTATE', '1NGJp9Fy5Se3PUhBtIYI1mc13KUnmuzgM'],
+  ['bridge', 'HOME WALKTHROUGH · REAL ESTATE', null, 'TjeFTpDt8vY'],
 ];
-$('#reel').innerHTML = REEL.map(([s, , id], i) => `<div class="shot${i === 0 ? ' on' : ''}">${id ? driveImg(id, s, '', 1920) : USM_SCENE(s, '', false)}</div>`).join('');
+$('#reel').innerHTML = REEL.map(([s, , id, yt], i) => `<div class="shot${i === 0 ? ' on' : ''}">${yt ? ytImg(yt, s, '') : id ? driveImg(id, s, '', 1920) : USM_SCENE(s, '', false)}</div>`).join('');
 let shot = 0; $('#shotName').textContent = REEL[0][1];
 if (!REDUCED) setInterval(() => {
   const shots = $$('#reel .shot'); shots[shot].classList.remove('on');
