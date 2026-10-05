@@ -47,6 +47,7 @@
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:220px;gap:16px;}
 .g-item{position:relative;border-radius:18px;overflow:hidden;cursor:zoom-in;border:none;padding:0;background:var(--night-2);color:var(--cream);text-align:left;}
 .g-item.wide{grid-column:span 2;}
+.gallery.filtered .g-item{grid-column:auto;grid-row:auto;}
 .g-item.tall{grid-row:span 2;}
 .g-item svg,.g-item img,.g-item .fallback{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.8,.2,1);}
 .g-item .fallback svg{width:100%;height:100%;}
@@ -55,7 +56,7 @@
 .g-item:hover svg,.g-item:hover img{transform:scale(1.07);}
 .g-item .cap{position:absolute;inset:auto 0 0 0;padding:40px 18px 16px;background:linear-gradient(transparent,rgba(18,13,10,.92));}
 .g-item .cap small{display:block;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:700;}
-.g-item .cap b{font-family:var(--font-display);font-size:18px;}
+.g-item .cap b{font-family:var(--font-display);font-size:18px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 .g-item .play{position:absolute;top:50%;left:50%;width:62px;height:62px;margin:-31px 0 0 -31px;border-radius:50%;background:rgba(255,247,238,.18);backdrop-filter:blur(6px);border:2px solid rgba(255,247,238,.7);display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.8);transition:all .3s;}
 .g-item:hover .play{opacity:1;transform:none;}
 .g-item .play svg{width:22px;height:22px;margin-left:3px;}
@@ -392,7 +393,7 @@ const SERVICES = [
    list:['Cinematic holiday highlight film', 'Vertical reel to share', 'Honeymoons, proposals & groups']},
 ];
 
-/* Gallery: real work loads from Google Drive (`drive` = video id, `photo` = image id).
+/* Gallery: real work loads from Google Drive (`drive` = video id, `photo` = image id) or YouTube (`yt` = video id).
    `scene` is the drawn fallback shown if Drive can't load, or for categories without real work yet. */
 const GALLERY = [
   {f:'realestate', drive:'1cli6LezW90tTNIrl5ov4Zw-mx5gwz18q', scene:'coast',     title:'Home Lands Skyline, Colombo', meta:'Real estate video', size:'wide'},
@@ -400,7 +401,12 @@ const GALLERY = [
   {f:'realestate', drive:'1VGDpBmvHkevuLTMh6-cTVgdGltRltaxJ', scene:'tea',       title:'Araliya Lands & Homes',       meta:'Real estate promo'},
   {f:'travel',     drive:'1gp1cLaixG7B_aAxDeeDJFJU2Lhn6XK2i', scene:'mountains', title:'Golden sunset',                meta:'Travel film'},
   {f:'travel',     photo:'1DUhfnEVBaLRu6fpI1RBy-EL14DCasK-c', scene:'stupa',     title:'Sigiriya',                     meta:'Travel photography', size:'wide'},
-  {f:'interview',  scene:'interview', title:'Founder interview',        meta:'2-camera interview · sample'},
+  {f:'interview',  yt:'auFWXGsW7jQ', scene:'interview', title:'Interview', meta:'Interview'},
+  {f:'interview',  yt:'AnXHRNym2NE', scene:'interview', title:'Interview', meta:'Interview', size:'wide'},
+  {f:'interview',  yt:'aYbw6ay6YTY', scene:'interview', title:'Interview', meta:'Interview'},
+  {f:'interview',  yt:'d4kDARRbafY', scene:'interview', title:'Interview', meta:'Interview'},
+  {f:'interview',  yt:'5Er4H8Z4W1s', scene:'interview', title:'Interview', meta:'Interview'},
+  {f:'interview',  yt:'U5xtgsKH-lg', scene:'interview', title:'Interview', meta:'Interview'},
   {f:'vlog',       scene:'vlog',      title:'Sunset beach vlog',        meta:'Vlog shoot · sample'},
   {f:'tourist',    scene:'portrait',  title:'Golden hour on the rocks', meta:'Couple session · sample'},
   {f:'tourist',    scene:'stupa',     title:'Temple at dusk',           meta:'Holiday film · sample'},
@@ -426,29 +432,43 @@ $$('[data-pick]').forEach(a => a.addEventListener('click', () => { $('#fService'
 const driveImg = (id, scene, alt, w) => `<img src="${thumb(id, w)}" alt="${alt}" loading="lazy" referrerpolicy="no-referrer" data-scene="${scene}">`;
 document.addEventListener('error', e => {
   const im = e.target;
+  if (im.tagName === 'IMG' && im.dataset.next){ im.src = im.dataset.next; delete im.dataset.next; return; }
   if (im.tagName === 'IMG' && im.dataset.scene){ const d = document.createElement('div'); d.className = 'fallback'; d.innerHTML = USM_SCENE(im.dataset.scene, '', false); im.replaceWith(d); }
 }, true);
-const media = g => g.drive || g.photo ? driveImg(g.drive || g.photo, g.scene, g.title) : g.img ? `<img src="${g.img}" alt="${g.title}" loading="lazy">` : USM_SCENE(g.scene, '', false);
+const ytImg = (id, scene, alt) => `<img src="https://i.ytimg.com/vi/${id}/maxresdefault.jpg" data-next="https://i.ytimg.com/vi/${id}/mqdefault.jpg" alt="${alt}" loading="lazy" data-scene="${scene}">`;
+const media = g => g.yt ? ytImg(g.yt, g.scene, g.title) : g.drive || g.photo ? driveImg(g.drive || g.photo, g.scene, g.title) : g.img ? `<img src="${g.img}" alt="${g.title}" loading="lazy">` : USM_SCENE(g.scene, '', false);
 $('#gallery-grid').innerHTML = GALLERY.map((g, i) => `
-  <button class="g-item reveal ${g.size || ''}${g.drive ? ' is-video' : ''}" data-i="${i}" data-f="${g.f}" aria-label="${g.drive ? 'Play' : 'View'} ${g.title}">
-    ${media(g)}<span class="kind">${g.drive ? '▶ VIDEO' : g.photo ? 'PHOTO' : KIND[g.f] || g.f.toUpperCase()}</span>
+  <button class="g-item reveal ${g.size || ''}${g.drive || g.yt ? ' is-video' : ''}" data-i="${i}" data-f="${g.f}" aria-label="${g.drive || g.yt ? 'Play' : 'View'} ${g.title}">
+    ${media(g)}<span class="kind">${g.drive || g.yt ? '▶ VIDEO' : g.photo ? 'PHOTO' : KIND[g.f] || g.f.toUpperCase()}</span>
     <span class="play"><svg><use href="#i-play"/></svg></span>
     <span class="cap"><small>${g.meta}</small><b>${g.title}</b></span>
   </button>`).join('');
 $('#gTabs').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   $$('#gTabs button').forEach(x => x.classList.toggle('active', x === b));
+  $('#gallery-grid').classList.toggle('filtered', b.dataset.f !== 'all');
   let n = 0;
   $$('.g-item').forEach(it => {
     it.hidden = b.dataset.f !== 'all' && it.dataset.f !== b.dataset.f;
     if (!it.hidden){ it.style.animationDelay = (n++ * 60) + 'ms'; it.classList.remove('pop-in'); void it.offsetWidth; it.classList.add('pop-in'); }
   });
 });
+/* fill in real YouTube titles when available (falls back to "Interview") */
+GALLERY.forEach((g, i) => {
+  if (!g.yt) return;
+  fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${g.yt}`).then(r => r.json()).then(d => {
+    if (!d || !d.title) return;
+    g.title = d.title;
+    const b = $(`.g-item[data-i="${i}"] .cap b`); if (b) b.textContent = d.title;
+  }).catch(() => {});
+});
 const lb = $('#lightbox');
 $('#gallery-grid').addEventListener('click', e => {
   const it = e.target.closest('.g-item'); if (!it) return;
   const g = GALLERY[+it.dataset.i];
-  $('#lbFrame').innerHTML = g.drive
+  $('#lbFrame').innerHTML = g.yt
+    ? `<iframe src="https://www.youtube-nocookie.com/embed/${g.yt}?autoplay=1&rel=0" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen title="${g.title}"></iframe>`
+    : g.drive
     ? `<iframe src="https://drive.google.com/file/d/${g.drive}/preview" allow="autoplay; fullscreen" allowfullscreen title="${g.title}"></iframe>`
     : g.photo ? driveImg(g.photo, g.scene, g.title, 2000)
     : g.img ? `<img src="${g.img}" alt="${g.title}">` : USM_SCENE(g.scene, SCENE_LABEL[g.scene]);
