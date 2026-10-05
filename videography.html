@@ -16,7 +16,8 @@
 .reel{position:absolute;inset:0;}
 .reel .shot{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease;}
 .reel .shot.on{opacity:1;}
-.reel .shot svg{width:100%;height:100%;}
+.reel .shot svg,.reel .shot img,.reel .shot .fallback{width:100%;height:100%;object-fit:cover;}
+.reel .shot.on img{animation:kenburns 9s ease-out forwards;}
 .reel .shot.on svg{animation:kenburns 9s ease-out forwards;}
 @keyframes kenburns{from{transform:scale(1.02);}to{transform:scale(1.14) translate(-1.5%,-1%);}}
 .v-hero::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(18,13,10,.55) 0%,rgba(18,13,10,.1) 35%,rgba(18,13,10,.65) 70%,rgba(18,13,10,.96) 100%);}
@@ -47,7 +48,10 @@
 .g-item{position:relative;border-radius:18px;overflow:hidden;cursor:zoom-in;border:none;padding:0;background:var(--night-2);color:var(--cream);text-align:left;}
 .g-item.wide{grid-column:span 2;}
 .g-item.tall{grid-row:span 2;}
-.g-item svg,.g-item img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.8,.2,1);}
+.g-item svg,.g-item img,.g-item .fallback{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.8,.2,1);}
+.g-item .fallback svg{width:100%;height:100%;}
+.g-item.is-video .play{opacity:1;transform:none;}
+.g-item.is-video .kind{background:var(--red);}
 .g-item:hover svg,.g-item:hover img{transform:scale(1.07);}
 .g-item .cap{position:absolute;inset:auto 0 0 0;padding:40px 18px 16px;background:linear-gradient(transparent,rgba(18,13,10,.92));}
 .g-item .cap small{display:block;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:700;}
@@ -61,7 +65,8 @@
 .lightbox{position:fixed;inset:0;z-index:80;background:rgba(18,13,10,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;opacity:0;pointer-events:none;transition:opacity .25s;color:var(--cream);}
 .lightbox.open{opacity:1;pointer-events:auto;}
 .lightbox .frame{width:min(1100px,100%);aspect-ratio:16/9;border-radius:16px;overflow:hidden;}
-.lightbox .frame svg,.lightbox .frame img{width:100%;height:100%;object-fit:cover;}
+.lightbox .frame svg,.lightbox .frame img,.lightbox .frame .fallback{width:100%;height:100%;object-fit:contain;background:#000;}
+.lightbox .frame iframe{width:100%;height:100%;border:0;background:#000;}
 .lightbox .lb-cap{text-align:center;}
 .lightbox .lb-cap b{font-family:var(--font-display);font-size:22px;display:block;}
 .lightbox .lb-cap span{color:var(--muted-dark);font-size:14.5px;}
@@ -197,13 +202,13 @@
 <section id="gallery" class="dark">
   <div class="container">
     <div class="section-head center">
-      <span class="eyebrow">Sample work</span>
+      <span class="eyebrow">Our work</span>
       <h2>Frames from the field.</h2>
-      <p>A taste of the looks we create. Tap any frame to view it larger.</p>
+      <p>Real projects we've filmed. Tap a video to play it.</p>
     </div>
     <div class="tabs" id="gTabs">
       <button class="active" data-f="all">All</button>
-      <button data-f="drone">Drone</button>
+      <button data-f="realestate">Real Estate</button>
       <button data-f="travel">Travel</button>
       <button data-f="tourist">Tourist Sessions</button>
       <button data-f="vlog">Vlogs</button>
@@ -368,7 +373,7 @@ const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* Services: edit prices and text here */
 const SERVICES = [
   {icon:'drone', name:'Drone Videography', from:'$59', feature:true,
-   desc:'Breathtaking aerial shots of coastlines, hotels, properties and events.',
+   desc:'Breathtaking aerial shots of properties, land, coastlines, hotels and events.',
    list:['4K aerial video & photos', 'Smooth cinematic flight paths', 'Edited aerial reel included']},
   {icon:'mic', name:'Interviews & Corporate', from:'$89',
    desc:'Clean, professional interviews for brands, podcasts, testimonials and documentaries.',
@@ -387,18 +392,22 @@ const SERVICES = [
    list:['Cinematic holiday highlight film', 'Vertical reel to share', 'Honeymoons, proposals & groups']},
 ];
 
-/* Gallery: replace `scene` with `img:'images/your-photo.jpg'` when real work is ready */
+/* Gallery: real work loads from Google Drive (`drive` = video id, `photo` = image id).
+   `scene` is the drawn fallback shown if Drive can't load, or for categories without real work yet. */
 const GALLERY = [
-  {f:'drone',     scene:'coast',     title:'Coastline from above',     meta:'Drone · Aerial film',      size:'wide'},
-  {f:'travel',    scene:'bridge',    title:'The Nine Arch Bridge',     meta:'Travel shoot',              size:'tall'},
-  {f:'tourist',   scene:'portrait',  title:'Golden hour on the rocks', meta:'Couple photo session'},
-  {f:'interview', scene:'interview', title:'Founder interview',         meta:'2-camera interview'},
-  {f:'travel',    scene:'tea',       title:'Hill country tea estates', meta:'Travel film',               size:'wide'},
-  {f:'vlog',      scene:'vlog',      title:'Sunset beach vlog',         meta:'Vlog shoot'},
-  {f:'drone',     scene:'mountains', title:'Sunrise over the hills',   meta:'Drone · Time-lapse'},
-  {f:'tourist',   scene:'stupa',     title:'Temple at dusk',           meta:'Tourist videographer',      size:'wide'},
+  {f:'realestate', drive:'1cli6LezW90tTNIrl5ov4Zw-mx5gwz18q', scene:'coast',     title:'Home Lands Skyline, Colombo', meta:'Real estate video', size:'wide'},
+  {f:'realestate', drive:'1NGJp9Fy5Se3PUhBtIYI1mc13KUnmuzgM', scene:'bridge',    title:'House in Kottawa',            meta:'Property walkthrough', size:'tall'},
+  {f:'realestate', drive:'1VGDpBmvHkevuLTMh6-cTVgdGltRltaxJ', scene:'tea',       title:'Araliya Lands & Homes',       meta:'Real estate promo'},
+  {f:'travel',     drive:'1gp1cLaixG7B_aAxDeeDJFJU2Lhn6XK2i', scene:'mountains', title:'Golden sunset',                meta:'Travel film'},
+  {f:'travel',     photo:'1DUhfnEVBaLRu6fpI1RBy-EL14DCasK-c', scene:'stupa',     title:'Sigiriya',                     meta:'Travel photography', size:'wide'},
+  {f:'interview',  scene:'interview', title:'Founder interview',        meta:'2-camera interview · sample'},
+  {f:'vlog',       scene:'vlog',      title:'Sunset beach vlog',        meta:'Vlog shoot · sample'},
+  {f:'tourist',    scene:'portrait',  title:'Golden hour on the rocks', meta:'Couple session · sample'},
+  {f:'tourist',    scene:'stupa',     title:'Temple at dusk',           meta:'Holiday film · sample'},
 ];
 const SCENE_LABEL = {coast:'AERIAL', bridge:'TRAVEL', portrait:'SESSION', interview:'INTERVIEW', tea:'TRAVEL', vlog:'VLOG', mountains:'DRONE', stupa:'HOLIDAY FILM'};
+const KIND = {realestate:'REAL ESTATE', tourist:'SESSION'};
+const thumb = (id, w = 1200) => `https://drive.google.com/thumbnail?id=${id}&sz=w${w}`;
 
 /* ---------- render services ---------- */
 $('#svcGrid').innerHTML = SERVICES.map(s => `
@@ -413,10 +422,16 @@ $('#fService').innerHTML = ['Quick Session', 'Half-Day Shoot', 'Full-Day Product
 $$('[data-pick]').forEach(a => a.addEventListener('click', () => { $('#fService').value = a.dataset.pick; }));
 
 /* ---------- gallery ---------- */
-const media = g => g.img ? `<img src="${g.img}" alt="${g.title}" loading="lazy">` : USM_SCENE(g.scene, '', false);
+/* drive image with drawn-scene fallback if it can't load */
+const driveImg = (id, scene, alt, w) => `<img src="${thumb(id, w)}" alt="${alt}" loading="lazy" referrerpolicy="no-referrer" data-scene="${scene}">`;
+document.addEventListener('error', e => {
+  const im = e.target;
+  if (im.tagName === 'IMG' && im.dataset.scene){ const d = document.createElement('div'); d.className = 'fallback'; d.innerHTML = USM_SCENE(im.dataset.scene, '', false); im.replaceWith(d); }
+}, true);
+const media = g => g.drive || g.photo ? driveImg(g.drive || g.photo, g.scene, g.title) : g.img ? `<img src="${g.img}" alt="${g.title}" loading="lazy">` : USM_SCENE(g.scene, '', false);
 $('#gallery-grid').innerHTML = GALLERY.map((g, i) => `
-  <button class="g-item reveal ${g.size || ''}" data-i="${i}" data-f="${g.f}" aria-label="View ${g.title}">
-    ${media(g)}<span class="kind">${g.f === 'tourist' ? 'SESSION' : g.f.toUpperCase()}</span>
+  <button class="g-item reveal ${g.size || ''}${g.drive ? ' is-video' : ''}" data-i="${i}" data-f="${g.f}" aria-label="${g.drive ? 'Play' : 'View'} ${g.title}">
+    ${media(g)}<span class="kind">${g.drive ? '▶ VIDEO' : g.photo ? 'PHOTO' : KIND[g.f] || g.f.toUpperCase()}</span>
     <span class="play"><svg><use href="#i-play"/></svg></span>
     <span class="cap"><small>${g.meta}</small><b>${g.title}</b></span>
   </button>`).join('');
@@ -433,16 +448,25 @@ const lb = $('#lightbox');
 $('#gallery-grid').addEventListener('click', e => {
   const it = e.target.closest('.g-item'); if (!it) return;
   const g = GALLERY[+it.dataset.i];
-  $('#lbFrame').innerHTML = g.img ? `<img src="${g.img}" alt="${g.title}">` : USM_SCENE(g.scene, SCENE_LABEL[g.scene]);
+  $('#lbFrame').innerHTML = g.drive
+    ? `<iframe src="https://drive.google.com/file/d/${g.drive}/preview" allow="autoplay; fullscreen" allowfullscreen title="${g.title}"></iframe>`
+    : g.photo ? driveImg(g.photo, g.scene, g.title, 2000)
+    : g.img ? `<img src="${g.img}" alt="${g.title}">` : USM_SCENE(g.scene, SCENE_LABEL[g.scene]);
   $('#lbTitle').textContent = g.title; $('#lbMeta').textContent = g.meta;
   lb.classList.add('open');
 });
-lb.addEventListener('click', e => { if (!e.target.closest('.frame')) lb.classList.remove('open'); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('open'); });
+function closeLb(){ lb.classList.remove('open'); setTimeout(() => { if (!lb.classList.contains('open')) $('#lbFrame').innerHTML = ''; }, 300); }
+lb.addEventListener('click', e => { if (!e.target.closest('.frame')) closeLb(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
 
 /* ---------- hero reel ---------- */
-const REEL = [['mountains', 'SUNRISE · DRONE'], ['coast', 'COASTLINE · AERIAL'], ['bridge', 'NINE ARCH BRIDGE · TRAVEL'], ['portrait', 'GOLDEN HOUR · SESSION']];
-$('#reel').innerHTML = REEL.map(([s], i) => `<div class="shot${i === 0 ? ' on' : ''}">${USM_SCENE(s, '', false)}</div>`).join('');
+const REEL = [
+  ['mountains', 'SIGIRIYA · TRAVEL', '1DUhfnEVBaLRu6fpI1RBy-EL14DCasK-c'],
+  ['coast', 'COLOMBO SKYLINE · REAL ESTATE', '1cli6LezW90tTNIrl5ov4Zw-mx5gwz18q'],
+  ['portrait', 'GOLDEN SUNSET · TRAVEL', '1gp1cLaixG7B_aAxDeeDJFJU2Lhn6XK2i'],
+  ['bridge', 'KOTTAWA HOUSE · REAL ESTATE', '1NGJp9Fy5Se3PUhBtIYI1mc13KUnmuzgM'],
+];
+$('#reel').innerHTML = REEL.map(([s, , id], i) => `<div class="shot${i === 0 ? ' on' : ''}">${id ? driveImg(id, s, '', 1920) : USM_SCENE(s, '', false)}</div>`).join('');
 let shot = 0; $('#shotName').textContent = REEL[0][1];
 if (!REDUCED) setInterval(() => {
   const shots = $$('#reel .shot'); shots[shot].classList.remove('on');
